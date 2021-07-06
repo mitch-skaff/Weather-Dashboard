@@ -4,9 +4,44 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/style.css">
     <title>Weather Dashboard</title>
 </head>
+
 <body>
+    <header class="jumbotron jumbotron-fluid text-center text-white bg-dark p-2">
+        <h1>Weather Dashboard</h1>
+    </header>
+
+    <main class="container-fluid">
+        <div class="row">
+            <aside class="col-lg-4">
+                <h3>Search for a City:</h3>
+                <div class="form-inline form-group">
+                    <input type="text" class="form-control" id="search-input"/>
+                    <button class="btn btn-primary" id="search">🔍</button>
+                </div>
+
+                <ul class="list-group history" id="history"></ul>
+            </aside>
+
+            <section class="col-lg-8">
+                <h4 class="invisible" id="today-header">Today:</h4>
+                <div id="today"></div>
+
+                <h4 class="invisible">5-Day Forecast:</h4>
+                <div class="row" id="forecast"></div>  
+            </section>
+        </div>
+    </main>
+
+    <script src="assets/script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
     
 </body>
+
 </html>
