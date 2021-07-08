@@ -11,7 +11,7 @@ var todayUvIndex = document.createElement('p');
 
 var searchHistory;
 
-
+// create function to gather the search input value, and pass through to cooresponding functions
 function searchInput () {
     var searchInput = document.querySelector("#search-input").value;
     console.log(searchInput);
@@ -24,6 +24,7 @@ function searchInput () {
     document.getElementById("search").value = "";
 }
 
+// gather todays weather and append information to "today" section
 function getCurrentWeather (searchInput) {
     var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + searchInput + "&appid=" + apiKey + "&units=imperial";
 
@@ -67,6 +68,7 @@ function getCurrentWeather (searchInput) {
 
             var uvQueryUrl = "https://api.openweathermap.org/data/2.5/uvi/forecast?lat=" + data.coord.lat + "&lon=" + data.coord.lon + "&appid=" + apiKey + "&cnt=1";
 
+            // separate fetch to pull UV index info then append to today section
             fetch (uvQueryUrl) 
                 .then(function(response) {
                     return response.json();
@@ -86,6 +88,7 @@ function getCurrentWeather (searchInput) {
      
 };
 
+// then create function to gather forecast based off search input
 function forecast (searchInput) {
     var forecastHeader = document.getElementById("forecast-header");
     forecastHeader.removeAttribute("class", "invisible");
@@ -97,12 +100,14 @@ function forecast (searchInput) {
 
     console.log(forecastApi);
 
+    // fetch forecast information
     fetch(forecastApi)
         .then(function (response) {
             return response.json()
         })
         .then(function(data) {
             
+            // iterate over data and only pull back time with "12:00" present (returns several times for each day)
             for (var i = 0; i < data.list.length; i++) {
                 if (data.list[i].dt_txt.includes("12:00")) {
                 
@@ -142,6 +147,7 @@ function forecast (searchInput) {
         }})
 }
 
+// created function to set search to local storage 
 function saveSearchInput(searchInput) {
 
     if(JSON.parse(localStorage.getItem("history")) != null)
@@ -162,6 +168,7 @@ function displaySearch(){
     searchListHistory();
 }
 
+// append search list to page in separate li's/cards
 function searchListHistory () {
     searchHistory.forEach(function (searchInput){
         var historyItem = document.createElement("li");
@@ -176,5 +183,6 @@ function searchListHistory () {
     });
 }
 
+// event listener that fire off first function at "click"
 
 searchBtn.addEventListener("click", searchInput);
